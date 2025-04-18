@@ -17,7 +17,7 @@ module.exports = async (req, res) => {
     // 3) Login to WattTime via Basic Auth to get a token
     console.log("🔑 Logging in to WattTime as", user);
     const basicAuth = Buffer.from(`${user}:${pass}`).toString("base64");
-    const authRes = await fetch("https://api.watttime.org/v3/signal-index", {
+    const authRes = await fetch("https://api.watttime.org/v3/login", {
       method: "GET",
       headers: { Authorization: `Basic ${basicAuth}` },
     });
