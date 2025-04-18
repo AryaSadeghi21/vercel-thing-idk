@@ -17,13 +17,10 @@ module.exports = async (req, res) => {
     // 3) Login to WattTime via Basic Auth to get a token
     console.log("🔑 Logging in to WattTime as", user);
     const basicAuth = Buffer.from(`${user}:${pass}`).toString("base64");
-    const authRes = await fetch(
-      "https://api2.watttime.org/v2/index/?ba=<BA_CODE>&style=all",
-      {
-        method: "GET",
-        headers: { Authorization: `Basic ${basicAuth}` },
-      }
-    );
+    const authRes = await fetch("https://api.watttime.org/v3/signal-index", {
+      method: "GET",
+      headers: { Authorization: `Basic ${basicAuth}` },
+    });
     if (!authRes.ok) {
       const text = await authRes.text();
       console.error("❌ WattTime login failed:", authRes.status, text);
@@ -39,7 +36,7 @@ module.exports = async (req, res) => {
     console.log("✅ Received WattTime token");
 
     // 4) Fetch the latest carbon index for that BA
-    const url = `https://api2.watttime.org/v2/index/?ba=${ba}&style=all`;
+    const url = `https://api.watttime.org/v3/signal-index`;
     console.log("🌐 Fetching carbon intensity from:", url);
     const dataRes = await fetch(url, {
       method: "GET",
