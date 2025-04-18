@@ -36,7 +36,7 @@ module.exports = async (req, res) => {
     console.log("✅ Received WattTime token");
 
     // 4) Fetch the latest carbon index for that BA
-    const url = `https://api.watttime.org/v3/signal-index`;
+    const url = `https://api.watttime.org/v3/signal-index?ba=${ba}&signal=co2_moer`;
     console.log("🌐 Fetching carbon intensity from:", url);
     const dataRes = await fetch(url, {
       method: "GET",
